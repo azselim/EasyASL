@@ -31,14 +31,23 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1><strong>VeriLang</strong></h1>
-        <h2>American Sign Language (ASL)</h2>
         {/*<TypingEffect />*/}
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+        <Image
+          src="/logo.jpg"
+          alt="Logo"
+          width={150}
+          height={150}
+          style={{ marginRight: '20px' }} // Space between image and text
+        />
+        <h2>American Sign Language (ASL)</h2>
+      </div>
         <Image
           className="logo"
-          src="www.image.svg"
-          alt="VeriLang logo"
-          width={20}
-          height={20}
+          src="/coloredline.png"
+          alt="Line"
+          width={800}
+          height={80}
         />
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
