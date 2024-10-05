@@ -12,3 +12,14 @@ function displayWord() {
     const word = generateWord();
     document.getElementById('randomWord').innerText = word;
 }
+
+//
+
+function check_ans(generatedWord, gptWord) {
+    const resultElement = document.getElementById('comparisonResult');
+    if (generatedWord.toLowerCase() === gptWord.toLowerCase()) {
+        resultElement.innerText = "Correct!";
+    } else {
+        resultElement.innerText = `Incorrect. Expected: ${generatedWord}, but got: ${gptWord}`;
+    }
+}
