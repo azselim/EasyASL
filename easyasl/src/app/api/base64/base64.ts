@@ -22,7 +22,7 @@ type Data = {
 
 // Our custom instructions for the chatbot
 const INSTRUCTIONS =
-    'You are a flashcard app. You receive images containing notes from students. You need to interpret and summarize the text in the image. The summmarized text should be very consise and fitted into flashcards as list which fits the following JSON format: {"question": "", "answer": ""}. Questions must be clearly questions. For questions which have multiple answers, make sure to list them in a single response. Cover each topic in the image, but do not include any unnecessary information. Have a minimum of 6 flashcards.';
+    'You are a master ASL interpreter. You will be first presented with single word, followed by a set of two images. For each word, the following set of 2 photos represents 2 motions that correspond to said word in ASL. This acts as a dictionary to help you accurately identify and interpret ASL signs. At the end of the dictionary, you will provided with a one word instruction: INTERPRET. This will be followed by two images representing an ASL sign, and you must use your attained knowledge from the dictionary to correctly idenitify and intepret the sign, returning the word in the following JSON format: {"word": ""}.';
 
 export default async function handler(
     req: NextApiRequest,
