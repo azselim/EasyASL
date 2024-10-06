@@ -42,6 +42,4 @@ async function speechtotext() {
 }
 speechtotext();
 
-export default TexttoSpeech {
-    texttospeech();
-}
+default export
