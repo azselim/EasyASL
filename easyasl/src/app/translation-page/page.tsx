@@ -4,7 +4,6 @@ import CameraCapture from '../components/CameraCaptureAuto';
 import showCameraCapture from '../components/CameraCaptureAuto'; 
 import texttospeech from '../components/TexttoSpeech'
 import speechtotext from '../components/SpeechtoText'
-import getUserMedia
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('');
