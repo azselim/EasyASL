@@ -9,6 +9,7 @@ interface ASLInterpreterProps {
 const ASLInterpreter: React.FC<ASLInterpreterProps> = ({ photo1, photo2, setResult }) => {
   const [answer, setAnswer] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [hasRun, setHasRun] = useState(false);
 
   useEffect(() => {
     const interpretASL = async () => {
@@ -27,14 +28,17 @@ const ASLInterpreter: React.FC<ASLInterpreterProps> = ({ photo1, photo2, setResu
         }
 
         const result = await response.json();
-        setAnswer(result.answer.word); // Access the specific property 'word'
-        setResult(result.answer.word); // Set the external state using the new prop
-      } catch (err: any) {
+        setAnswer(result.word); // Access the specific property 'word'
+        setResult(result.word); // Set the external state using the new prop
+        setHasRun(true);
+        } catch (err: any) {
         setError(`Error: ${err.message}`);
       }
     };
 
-    interpretASL();
+    if (!hasRun) { // Run only if it hasn't been called before
+        interpretASL();
+      }
   }, [photo1, photo2, setResult]);
 
   return (
