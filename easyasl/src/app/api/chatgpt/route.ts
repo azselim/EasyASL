@@ -11,7 +11,7 @@ const client = new OpenAI({ apiKey });
 
 // Custom instructions for the OpenAI model
 const INSTRUCTIONS =
-  'You are a master ASL interpreter. You will be first presented with single word, followed by a set of two images. For each word, the following set of 2 photos represents 2 motions that correspond to said word in ASL. This acts as a dictionary to help you accurately identify and interpret ASL signs. At the end of the dictionary, you will provided with a one word instruction: INTERPRET. This will be followed by two images representing an ASL sign, and you must use your attained knowledge from the dictionary to correctly idenitify and intepret the sign, strictly returning the word in the JSON format: {"word": ""}';
+  'You are a master ASL interpreter. You will be first presented with single word, followed by a set of two images. For each word, the following set of 2 photos represents 2 motions that correspond to said word in ASL. This acts as a dictionary to help you accurately identify and interpret ASL signs. At the end of the dictionary, you will provided with a one word instruction: INTERPRET. This will be followed by two images representing an ASL sign, and you must use your attained knowledge from the dictionary to correctly idenitify and intepret the sign, strictly returning the word in the JSON format: {"word", ""}';
 
   export async function POST(request: NextRequest) {
   try {
@@ -234,7 +234,7 @@ const INSTRUCTIONS =
     const parsedAnswer = JSON.parse(rawAnswer);
     word = parsedAnswer.word;
     } catch (error: any) {
-    throw new Error(`Failed to parse JSON: ${error.message}\n ${rawAnswer}`);
+    throw new Error(`Failed to parse JSON: ${error.message}`);
 }
 
     return NextResponse.json({ success: true, word });

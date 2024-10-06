@@ -30,4 +30,7 @@ async function texttospeech() {
     }
 }
 
-export default texttospeech();
+texttospeech();
+
+export default texttospeech;
+

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 interface ASLInterpreterProps {
   photo1: string;
   photo2: string;
-  setResult: React.Dispatch<React.SetStateAction<string>>; 
+  setResult: React.Dispatch<React.SetStateAction<string>>; // Add the new prop for the state setter
 }
 
 const ASLInterpreter: React.FC<ASLInterpreterProps> = ({ photo1, photo2, setResult }) => {
@@ -24,23 +24,22 @@ const ASLInterpreter: React.FC<ASLInterpreterProps> = ({ photo1, photo2, setResu
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.log(errorData);
           throw new Error(`API Error: ${errorData.failedReason || response.statusText}`);
         }
 
         const result = await response.json();
-        setAnswer(result.word);
-        setResult(result.word);
-      } catch (err: any) {
+        setAnswer(result.word); // Access the specific property 'word'
+        setResult(result.word); // Set the external state using the new prop
+        setHasRun(true);
+        } catch (err: any) {
         setError(`Error: ${err.message}`);
       }
     };
 
-    if (!hasRun && photo1 && photo2) {
-      interpretASL();
-      setHasRun(true);  // Only set this state change once after the function is called
-    }
-  }, [photo1, photo2]);  // Keep dependencies minimal
+    if (!hasRun) { // Run only if it hasn't been called before
+        interpretASL();
+      }
+  }, [photo1, photo2, setResult]);
 
   return (
     <div>
@@ -56,7 +55,7 @@ const ASLInterpreter: React.FC<ASLInterpreterProps> = ({ photo1, photo2, setResu
       {error && (
         <div>
           <h3>Error:</h3>
-          <p>{error}, {answer}</p>
+          <p>{error}</p>
         </div>
       )}
     </div>
