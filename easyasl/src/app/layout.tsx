@@ -24,13 +24,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-=======
 // app/layout.tsx
 import './styles/globals.css';
 import { ReactNode } from 'react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
->>>>>>> Stashed changes
   return (
     <html lang="en">
       <body
