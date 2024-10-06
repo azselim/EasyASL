@@ -1,10 +1,8 @@
 'use client'
 import Image from "next/image";
 import React, { useState } from 'react';
-import CaptureAndProcess from '../components/CaptureAndProcess'; 
-import CameraCapture from '../components/CameraCapture';
-import texttospeech from '../components/translation'
-
+import texttospeech from '../components/TextToSpeech'
+import CameraCapture from '@/app/components/CaptureAndProcess';
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('Two-Way Translation');
