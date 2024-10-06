@@ -18,7 +18,7 @@ export default function TrialPage() {
     "hello": "/images/hello.jpg",
     "I": "/images/I.jpg",
     "more": "/images/more.jpg",
-    "?": "/images/question.jpg",
+    "?": "/images/question_mark.jpg",
     "thirsty": "/images/thirsty.jpg",
     "want": "/images/want.jpg",
     "you": "/images/you.jpg"
