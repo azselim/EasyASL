@@ -1,38 +1,21 @@
+'use client'
 import Image from "next/image";
 import React from "react";
-
-{/*const TypingEffect = () => {
-  return (
-    <Typewriter 
-    textStyle={{
-      fontFamily: "Arial",
-      color: "#3F3D56",
-      fontWeight: 500,
-      fontSize: "1.5em",
-    }}
-    startDelay={200}
-    cursorColor="#3F3D56"
-    multiText={[
-      "Verification",
-      "Education",
-      "Translation",
-    ]}
-    multiTextDelay={1000}
-    typeSpeed={100}
-    deleteSpeed={50}
-    multiTextLoop={true}
-    />
-  );
-};*/}
+import { Typewriter } from 'react-simple-typewriter';
 
 const Home = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>
-          <strong>VeriLang</strong>
-        </h1>
-        <div style={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-20 row-start-2 items-center sm:items-start">
+        
+        {/* Centering the h1 with Typewriter effect */}
+        <div className="w-full flex justify-center">
+          <h1>
+          VeriLang
+          </h1>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", marginTop: "20px" , marginLeft: "500px"}}>
           <Image
             src="/logo.jpg"
             alt="Logo"
@@ -40,8 +23,19 @@ const Home = () => {
             height={150}
             style={{ marginRight: "20px" }} // Space between image and text
           />
-          <h2>American Sign Language (ASL)</h2>
+          <h2>
+          <Typewriter
+              words={['Learn', 'Translate', 'Practice']}
+              loop={false}
+              cursor
+              cursorStyle="|"
+              typeSpeed={100}
+              deleteSpeed={50}
+              delaySpeed={1000}
+            />
+            </h2>
         </div>
+        <div style = {{display: "flex", alignItems: "center", marginLeft: "350px" }}>
         <Image
           className="logo"
           src="/coloredline.png"
@@ -49,6 +43,7 @@ const Home = () => {
           width={800}
           height={80}
         />
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           {/* First Link */}
@@ -85,6 +80,7 @@ const Home = () => {
               alt="Vercel logomark"
               width={20}
               height={20}
+              
             />
             Certify ASL Skills
           </a>
@@ -130,6 +126,6 @@ const Home = () => {
       </footer>
     </div>
   );
-}
+};
 
 export default Home;
