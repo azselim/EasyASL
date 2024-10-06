@@ -4,12 +4,14 @@ import CaptureAndProcess from '../components/CaptureAndProcess';
 import CameraCapture from '../components/CameraCapture';
 import TextToSpeech from '../components/TexttoSpeech';
 import SpeechToText from '../components/SpeechToText_';
+import { useRouter } from 'next/navigation';
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleASLToEnglish = () => {
-    setMessage('Processing ASL to English translation...');
+    router.push('/translate-asl');
   };
 
   const handleTwoWayTranslation = () => {
