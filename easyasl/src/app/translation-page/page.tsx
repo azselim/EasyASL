@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import CaptureAndProcess from '../components/CaptureAndProcess'; 
 import CameraCapture from '../components/CameraCapture';
 import texttospeech from '../components/TexttoSpeech'
-import speechtotext from '../components/SpeechtoText'
-import SpeechToText from '../components/SpeechtoText';
+import speechtotext from '../components/SpeechToText_'
+import SpeechToText from '../components/SpeechToText_';
 
 
 export default function TranslationPage() {
