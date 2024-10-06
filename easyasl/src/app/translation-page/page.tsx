@@ -43,3 +43,7 @@ export default function TranslationPage() {
     </div>
   );
   }
+
+function handleEnglishtoText() {
+  throw new Error('Function not implemented.');
+}
