@@ -24,3 +24,14 @@ async function texttospeech() {
     }
 }
 texttospeech();
+
+async function speechtotext() {
+    const transcription = await openai.audio.transcriptions.create({
+      file: fs.createReadStream("file.mp3"),
+      model: "whisper-1", //edit
+      response_format: "text",
+    });
+  
+    console.log(transcription);
+  }
+  speechtotext();
