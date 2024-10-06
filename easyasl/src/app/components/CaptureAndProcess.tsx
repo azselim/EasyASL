@@ -1,7 +1,12 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
 
-const CaptureAndProcess: React.FC = () => {
+// Define the prop type for `photoTaken`
+interface CaptureAndProcessProps {
+  photoTaken: boolean;
+}
+
+const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef1 = useRef<HTMLCanvasElement>(null);
   const canvasRef2 = useRef<HTMLCanvasElement>(null);
@@ -10,10 +15,10 @@ const CaptureAndProcess: React.FC = () => {
   const [processedImageUrl2, setProcessedImageUrl2] = useState<string>('');
 
   useEffect(() => {
-    // Ensure this code runs only on the client side
+    // Initialize webcam stream
     if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
-      // Request access to the webcam
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
         .then((stream) => {
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
@@ -24,6 +29,22 @@ const CaptureAndProcess: React.FC = () => {
         });
     }
   }, []);
+
+  // Monitor changes in `photoTaken` and trigger capture process
+  useEffect(() => {
+    if (photoTaken) {
+      captureAndProcessPhotos();
+    }
+  }, [photoTaken]); // Run when `photoTaken` changes
+
+  // Effect to run custom code once both images are set
+  useEffect(() => {
+    if (processedImageUrl1 && processedImageUrl2) {
+      // Code to execute when both images are processed
+      console.log("Both images are processed. Ready for next step!");
+      // Add any logic here that should run after both URLs are set
+    }
+  }, [processedImageUrl1, processedImageUrl2]); // Runs whenever either image URL changes
 
   const captureAndProcessPhotos = () => {
     if (!videoRef.current || !canvasRef1.current || !canvasRef2.current) return;
@@ -38,11 +59,13 @@ const CaptureAndProcess: React.FC = () => {
     const imageDataURL1 = canvasRef1.current.toDataURL('image/png');
 
     // Process the first image
-    processImage(imageDataURL1).then((url) => {
-      setProcessedImageUrl1(url);
-    }).catch((error) => {
-      console.error('Error processing image 1:', error);
-    });
+    processImage(imageDataURL1)
+      .then((url) => {
+        setProcessedImageUrl1(url);
+      })
+      .catch((error) => {
+        console.error('Error processing image 1:', error);
+      });
 
     // Wait 1.5 seconds and then capture the second photo
     setTimeout(() => {
@@ -50,11 +73,13 @@ const CaptureAndProcess: React.FC = () => {
       const imageDataURL2 = canvasRef2.current.toDataURL('image/png');
 
       // Process the second image
-      processImage(imageDataURL2).then((url) => {
-        setProcessedImageUrl2(url);
-      }).catch((error) => {
-        console.error('Error processing image 2:', error);
-      });
+      processImage(imageDataURL2)
+        .then((url) => {
+          setProcessedImageUrl2(url);
+        })
+        .catch((error) => {
+          console.error('Error processing image 2:', error);
+        });
     }, 1500);
   };
 
@@ -81,23 +106,13 @@ const CaptureAndProcess: React.FC = () => {
     <div>
       <h2>Capture and Process Images</h2>
       <video ref={videoRef} width="640" height="480" autoPlay muted></video>
-      <div>
-        <button onClick={captureAndProcessPhotos}>Capture Photos</button>
-      </div>
       <div style={{ display: 'none' }}>
         <canvas ref={canvasRef1} width="640" height="480"></canvas>
         <canvas ref={canvasRef2} width="640" height="480"></canvas>
       </div>
-      {processedImageUrl1 && (
+      {(processedImageUrl1 && processedImageUrl2) && (
         <div>
-          <h3>Processed Image 1:</h3>
-          <img src={processedImageUrl1} alt="Processed Image 1" />
-        </div>
-      )}
-      {processedImageUrl2 && (
-        <div>
-          <h3>Processed Image 2:</h3>
-          <img src={processedImageUrl2} alt="Processed Image 2" />
+          <h3></h3>
         </div>
       )}
     </div>
