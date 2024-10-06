@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import TestPage from '@/app/components/Testwrdd';
+import TextToSpeech from '@/app/components/TexttoSpeechcopy';  // Import the TextToSpeech component
 import { useRouter } from 'next/navigation';
 
 const ParentPage: React.FC = () => {
@@ -77,7 +78,6 @@ const ParentPage: React.FC = () => {
       <h1>ASL to English Translation</h1>
       <h2>Direct Translation: {fullSentence}</h2> {/* Display the entire sentence */}
       {!finalized && <h3>Current Word: {currentWord}</h3>} {/* Display the last received word only if not finalized */}
-      
       {/* Render the TestPage with a unique key to reset it */}
       {!finalized && <TestPage key={key} onWordCaptured={handleNewWord} />}
       
@@ -85,6 +85,8 @@ const ParentPage: React.FC = () => {
       {finalized && (
         <div>
           <h2>Natural Translation: {correctedSentence}</h2>
+          {/* Pass the corrected sentence to TextToSpeech */}
+          <TextToSpeech text={correctedSentence} /> 
         </div>
       )}
     </div>

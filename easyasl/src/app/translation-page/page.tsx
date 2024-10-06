@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import CaptureAndProcess from '../components/CaptureAndProcess'; 
 import CameraCapture from '../components/CameraCapture';
-import TextToSpeech from '../components/TexttoSpeech'
+import TextToSpeech from '../components/TexttoSpeech';
 import SpeechToText from '../components/SpeechToText_';
 
 export default function TranslationPage() {
@@ -10,8 +10,8 @@ export default function TranslationPage() {
 
   const handleASLToEnglish = () => {
     setMessage('Processing ASL to speech...');
-    //CaptureAndProcess();
-    //texttospeech();
+    // CaptureAndProcess();
+    // texttospeech();
   };
 
   const handleTwoWayTranslation = () => {
@@ -23,19 +23,21 @@ export default function TranslationPage() {
     <div>
       <h1>Translating</h1>
       <p>{message}</p>
-      <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
-      <SpeechToText/>
-      </button>
 
-      <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
-      <TextToSpeech/>
-      </button>
+      {/* Wrapping components inside div instead of button to avoid nesting */}
+      <div style={{ margin: '10px' }}>
+        <button style={{ fontSize: '24px', padding: '15px' }} onClick={handleASLToEnglish}>
+          Start ASL to English Translation
+        </button>
+      </div>
 
+      <div style={{ margin: '10px' }}>
+        <SpeechToText />
+      </div>
+
+      <div style={{ margin: '10px' }}>
+        <TextToSpeech />
+      </div>
     </div>
   );
-
-
-
-
-
-  }
+}
