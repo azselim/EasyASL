@@ -24,10 +24,15 @@ export default function TrialPage() {
     "you": "/images/you.jpg"
   };
 
+  // Filter words based on user input
+  const filteredWordList = wordList.filter(word =>
+    word.toLowerCase().includes(userInput.toLowerCase())
+  );
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
     setUserInput(input);
-    
+
     // Check if the input exists in the wordList
     if (wordList.includes(input)) {
       setIsWordFound(true);
@@ -38,19 +43,42 @@ export default function TrialPage() {
     }
   };
 
+  const handleWordClick = (word: string) => {
+    setUserInput(word);
+    setIsWordFound(true);
+    setFoundImage(imageMap[word]);
+  };
+
   return (
-    <div>
-      <h1>Dictionary</h1>
-      <p>Enter a word that you want to look up in the dictionary!</p>
+    <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', padding: '20px' }}>
+      {/* Centered Title */}
+      <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Dictionary</h1>
+      <p style={{ marginBottom: '20px' }}>Type a word to look it up in the dictionary!</p>
 
       {/* Input textbox */}
-      <input 
-        type="text" 
-        value={userInput} 
-        onChange={handleInputChange} 
-        placeholder="Enter your text here" 
+      <input
+        type="text"
+        value={userInput}
+        onChange={handleInputChange}
+        placeholder="Enter your text here"
+        style={{ padding: '10px', fontSize: '1rem', width: '80%', maxWidth: '400px', marginBottom: '20px' }}
       />
-      
+
+      {/* Dropdown suggestions */}
+      {userInput && filteredWordList.length > 0 && (
+        <ul style={{ listStyleType: 'none', padding: '0', margin: '0', textAlign: 'left', width: '80%', maxWidth: '400px', marginInline: 'auto' }}>
+          {filteredWordList.map((word, index) => (
+            <li
+              key={index}
+              onClick={() => handleWordClick(word)}
+              style={{ padding: '10px', cursor: 'pointer', background: '#f0f0f0', borderBottom: '1px solid #ccc' }}
+            >
+              {word}
+            </li>
+          ))}
+        </ul>
+      )}
+
       {/* Display search result */}
       {isWordFound !== null && (
         <p>
@@ -60,23 +88,19 @@ export default function TrialPage() {
 
       {/* Display the corresponding image if the word is found */}
       {foundImage && (
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '20px' }}>
           <h2>Corresponding Image:</h2>
-          {/* Use standard <img> tag to display the image */}
-          <img src={foundImage} alt={userInput} width={200} height={200} />
+          <img src={foundImage} alt={userInput} width={200} height={200} style={{ marginTop: '10px' }} />
         </div>
       )}
 
       {/* Display the word list */}
-      <h2>Word List</h2>
-      <ul>
+      <h2 style={{ marginTop: '30px' }}>Word List</h2>
+      <ul style={{ listStyleType: 'none', padding: '0', fontSize: '1.2rem', lineHeight: '2rem', columnCount: 2, marginTop: '20px' }}>
         {wordList.map((word, index) => (
-          <li key={index}>{word}</li>
+          <li key={index} style={{ padding: '5px 0' }}>{word}</li>
         ))}
       </ul>
-
-      {/* Import and use the CameraCapture component */}
-   
     </div>
   );
 }
