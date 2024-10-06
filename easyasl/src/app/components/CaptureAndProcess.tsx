@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
+import ASLInterpreter from './GetASL';
 
 // Define the prop type for `photoTaken`
 interface CaptureAndProcessProps {
@@ -112,7 +113,7 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken }) => 
       </div>
       {(processedImageUrl1 && processedImageUrl2) && (
         <div>
-          <h3></h3>
+          <h3><ASLInterpreter photo1= {processedImageUrl1} photo2= {processedImageUrl2} /></h3>
         </div>
       )}
     </div>

@@ -12,7 +12,7 @@ const StartTest = ({ message, setPhotoTaken }: { message: string, setPhotoTaken:
   return (
     <div>
       {!showComponent ? (
-        <button onClick={handleClick}>Click to show component</button>
+        <a className="footer-button" onClick={handleClick} style={{ fontSize: '24px', padding: '15px 30px', width: '200px', textAlign: 'center' }}>Start</a>
       ) : (
         <div>
             <h4>Sign the word for</h4>
