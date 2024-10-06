@@ -3,14 +3,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ASLInterpreter from './GetASL';
 
-// Define the prop type for `photoTaken` and `setProcessing`
 interface CaptureAndProcessProps {
   photoTaken: boolean;
   setProcessing: React.Dispatch<React.SetStateAction<number>>;
   correctWord: string;
+  incrementScore: () => void;
+  goToNextQuestion: () => void; // Add the next question prop
+  processing: number
 }
 
-const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setProcessing, correctWord}) => {
+const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({
+  photoTaken,
+  setProcessing,
+  correctWord,
+  incrementScore,
+  goToNextQuestion, // Include the next question prop
+  processing,
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef1 = useRef<HTMLCanvasElement>(null);
   const canvasRef2 = useRef<HTMLCanvasElement>(null);
@@ -18,12 +27,8 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
   const [processedImageUrl1, setProcessedImageUrl1] = useState<string>('');
   const [processedImageUrl2, setProcessedImageUrl2] = useState<string>('');
   const [word, setWord] = useState<string>('');
-  const [once, setOnce] = useState(true);
-
-  
 
   useEffect(() => {
-    // Initialize webcam stream
     if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -38,73 +43,51 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
     }
   }, []);
 
-  // Monitor changes in `photoTaken` and trigger capture process
   useEffect(() => {
     if (photoTaken) {
       captureAndProcessPhotos();
     }
-  }, [photoTaken]); // Run when `photoTaken` changes
+  }, [photoTaken]);
 
-  // Effect to run custom code once both images are set
   useEffect(() => {
     if (processedImageUrl1 && processedImageUrl2) {
       setProcessing(1);
     }
-  }, [processedImageUrl1, processedImageUrl2]); // Runs whenever either image URL changes
+  }, [processedImageUrl1, processedImageUrl2]);
 
   const captureAndProcessPhotos = () => {
     if (!videoRef.current || !canvasRef1.current || !canvasRef2.current) return;
-  
+
     const ctx1 = canvasRef1.current.getContext('2d');
     const ctx2 = canvasRef2.current.getContext('2d');
-  
+
     if (!ctx1 || !ctx2) return;
-  
-    // Define the target dimensions for compressed images
-    const targetWidth = 320; // Smaller width for compression
-    const targetHeight = 240; // Smaller height for compression
-  
-    // Resize and capture the first photo
-    canvasRef1.current.width = targetWidth;
-    canvasRef1.current.height = targetHeight;
-    ctx1.drawImage(videoRef.current, 0, 0, targetWidth, targetHeight); // Draw to smaller canvas
-    const imageDataURL1 = canvasRef1.current.toDataURL('image/jpeg', 0.7); // Use JPEG format for further compression
-  
-    // Process the first image
+
+    canvasRef1.current.width = 320;
+    canvasRef1.current.height = 240;
+    ctx1.drawImage(videoRef.current, 0, 0, 320, 240);
+    const imageDataURL1 = canvasRef1.current.toDataURL('image/jpeg', 0.7);
+
     processImage(imageDataURL1)
-      .then((url) => {
-        setProcessedImageUrl1(url);
-      })
-      .catch((error) => {
-        console.error('Error processing image 1:', error);
-      });
-  
-    // Wait 1.5 seconds and then capture the second photo
+      .then((url) => setProcessedImageUrl1(url))
+      .catch((error) => console.error('Error processing image 1:', error));
+
     setTimeout(() => {
-      canvasRef2.current.width = targetWidth;
-      canvasRef2.current.height = targetHeight;
-      ctx2.drawImage(videoRef.current!, 0, 0, targetWidth, targetHeight); // Draw to smaller canvas
-      const imageDataURL2 = canvasRef2.current.toDataURL('image/jpeg', 0.7); // Compress second image
-  
-      // Process the second image
+      canvasRef2.current.width = 320;
+      canvasRef2.current.height = 240;
+      ctx2.drawImage(videoRef.current!, 0, 0, 320, 240);
+      const imageDataURL2 = canvasRef2.current.toDataURL('image/jpeg', 0.7);
+
       processImage(imageDataURL2)
-        .then((url) => {
-          setProcessedImageUrl2(url);
-        })
-        .catch((error) => {
-          console.error('Error processing image 2:', error);
-        });
-    }, 1000);
+        .then((url) => setProcessedImageUrl2(url))
+        .catch((error) => console.error('Error processing image 2:', error));
+    }, 1500);
   };
-  
 
   const processImage = async (base64Image: string): Promise<string> => {
-    // Send the image to the API route
     const response = await fetch('/api/process-image', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ base64Image }),
     });
 
@@ -119,30 +102,36 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
 
   return (
     <div>
-      <h2>Capture and Process Images</h2>
       <video ref={videoRef} width="640" height="480" autoPlay muted></video>
       <div style={{ display: 'none' }}>
         <canvas ref={canvasRef1} width="640" height="480"></canvas>
         <canvas ref={canvasRef2} width="640" height="480"></canvas>
       </div>
-      {(processedImageUrl1 && processedImageUrl2 && once) && (
+      {processedImageUrl1 && processedImageUrl2 && (
         <div>
           <h3>
-            {/* Pass setProcessing and setWord to the ASLInterpreter component */}
             <ASLInterpreter
               photo1={processedImageUrl1}
               photo2={processedImageUrl2}
               setResult={(word) => {
-                setWord(word); // Set the interpreted word
+                setWord(word);
                 if (word === correctWord) {
-                  setProcessing(3); // If interpreted as correct
+                  incrementScore(); // Increment the score if the word is correct
+                  setProcessing(3);
                 } else {
-                  setProcessing(2); // If interpreted as incorrect
+                  setProcessing(4);
                 }
-                setOnce(false);
               }}
             />
           </h3>
+          {(word && (word === correctWord ? (
+            <p>Correct! Click 'Next' to continue.</p>
+          ) : (
+            <p>Incorrect. The correct answer was {correctWord}. Click 'Next' to continue.</p>
+          )))}
+          {(processing === 3 || processing === 4) && (
+            <button onClick={goToNextQuestion}>Next</button>
+          )}
         </div>
       )}
     </div>
