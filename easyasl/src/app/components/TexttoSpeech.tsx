@@ -29,17 +29,5 @@ async function texttospeech() {
         console.error("Error occured", error);
     }
 }
-texttospeech();
 
-async function speechtotext() {
-    const transcription = await openai.audio.transcriptions.create({
-    file: fs.createReadStream("xx.mp3"), //add file
-    model: "whisper-1",
-    });
-
-    console.log(transcription.text);
-
-}
-speechtotext();
-
-default export
+export default texttospeech();

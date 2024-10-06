@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-simple-typewriter": "^5.0.1",
+    "typewriter": "^9.2.0"
+  }
+}
