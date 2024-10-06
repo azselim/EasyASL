@@ -7,22 +7,24 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-//audio from text
+//initialize openai
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
 export default async function speechtotext(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Wrong method' });
+    }
+    
     try {
         const filePath = path.resolve('');
-        const mp3 = await openai.audio.speech.create({
-            model: 'tts-1',
-            voice: 'fable',
-            input: '' //add here
+        const transcription = await openai.audio.transcriptions.create({
+            file: fs.createReadStream(""), //file
+            model: "whisper-1",
         });
 
-        const buffer = Buffer.from(await mp3.arrayBuffer());
-        await fs.promises.writeFile(filePath, buffer);
+        transcription.text
 
         res.status(200).json({ message: 'Success! Audio saved.', filePath });
     } catch (error) {
