@@ -1,6 +1,9 @@
 // app/capture/page.tsx
+
+'use client';
+
 import React from 'react';
-import CameraCapture from '@/app/components/CameraCapture'; // Adjust the import path if necessary
+import CameraCapture from '@/app/components/CaptureAndProcess'; // Adjust the import path if necessary
 
 const CapturePage = () => {
   return (
