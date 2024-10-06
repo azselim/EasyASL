@@ -1,19 +1,23 @@
-'use client'
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
 import ASLInterpreter from './GetASL';
 
-// Define the prop type for `photoTaken`
+// Define the prop type for `photoTaken` and `setProcessing`
 interface CaptureAndProcessProps {
   photoTaken: boolean;
+  setProcessing: React.Dispatch<React.SetStateAction<number>>;
+  correctWord: string;
 }
 
-const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken }) => {
+const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setProcessing, correctWord}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef1 = useRef<HTMLCanvasElement>(null);
   const canvasRef2 = useRef<HTMLCanvasElement>(null);
 
   const [processedImageUrl1, setProcessedImageUrl1] = useState<string>('');
   const [processedImageUrl2, setProcessedImageUrl2] = useState<string>('');
+  const [word, setWord] = useState<string>('');
 
   useEffect(() => {
     // Initialize webcam stream
@@ -41,9 +45,7 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken }) => 
   // Effect to run custom code once both images are set
   useEffect(() => {
     if (processedImageUrl1 && processedImageUrl2) {
-      // Code to execute when both images are processed
-      console.log("Both images are processed. Ready for next step!");
-      // Add any logic here that should run after both URLs are set
+      setProcessing(1);
     }
   }, [processedImageUrl1, processedImageUrl2]); // Runs whenever either image URL changes
 
@@ -113,7 +115,21 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken }) => 
       </div>
       {(processedImageUrl1 && processedImageUrl2) && (
         <div>
-          <h3><ASLInterpreter photo1= {processedImageUrl1} photo2= {processedImageUrl2} /></h3>
+          <h3>
+            {/* Pass setProcessing and setWord to the ASLInterpreter component */}
+            <ASLInterpreter
+              photo1={processedImageUrl1}
+              photo2={processedImageUrl2}
+              setResult={(word) => {
+                setWord(word); // Set the interpreted word
+                if (word === correctWord) {
+                  setProcessing(3); // If interpreted as correct
+                } else {
+                  setProcessing(4); // If interpreted as incorrect
+                }
+              }}
+            />
+          </h3>
         </div>
       )}
     </div>

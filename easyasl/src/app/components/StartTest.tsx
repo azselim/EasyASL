@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CountdownTimer from '../components/Countdown';
 
 // Child Component
-const StartTest = ({ message, setPhotoTaken }: { message: string, setPhotoTaken: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const StartTest = ({ message, setPhotoTaken, processing }: { message: string, setPhotoTaken: React.Dispatch<React.SetStateAction<boolean>>, processing: number}) => {
   const [showComponent, setShowComponent] = useState(false);
 
   const handleClick = () => {
@@ -16,9 +16,20 @@ const StartTest = ({ message, setPhotoTaken }: { message: string, setPhotoTaken:
       ) : (
         <div>
             <h4>Sign the word for</h4>
-          <h2>{message}</h2> {/* Display the variable passed from the parent */}
-          <CountdownTimer setPhotoTaken={setPhotoTaken}/>
-        </div>
+            <h2>{message}</h2> {/* Display the variable passed from the parent */}
+            {(processing === 0) &&
+            <CountdownTimer setPhotoTaken={setPhotoTaken}/>
+            }
+            {(processing === 1) &&
+            <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" />
+            }
+            {(processing === 2) &&
+            <h3>Wrong</h3>
+            }
+            {(processing === 3) &&
+            <h3>Right</h3>
+            }
+            </div>
       )}
     </div>
   );
