@@ -26,7 +26,7 @@ const Home: React.FC = () => {
           />
           <h2>
           <Typewriter
-              words={['Learn.', 'Translate.', 'Practice.']}
+              words={['Practice.', 'Translate', 'Certify']}
               loop={false}
               cursor
               cursorStyle="|"
@@ -38,9 +38,9 @@ const Home: React.FC = () => {
 
             
             <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-            <a className="footer-button" href="/">Practice</a>
+            <a className="footer-button" href="/trial-page">Practice</a>
             <a className="footer-button" href="/translation-page">Translate</a>
-            <a className="footer-button" href="/education-page">Learn</a>
+            <a className="footer-button" href="/certification-page">Certifiy</a>
           </footer>
             
         </div>
