@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "fs": "^0.0.1-security",
     "react-simple-typewriter": "^5.0.1",
     "typewriter": "^9.2.0"
   }
