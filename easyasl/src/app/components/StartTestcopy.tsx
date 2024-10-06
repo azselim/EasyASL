@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CountdownTimer from '../components/Countdown';
+import CountdownTimer from '../components/Countdowncopy';
 
 // Child Component
 const StartTest = ({ message, setPhotoTaken, processing, currentWordIndex }: { message: string, setPhotoTaken: React.Dispatch<React.SetStateAction<boolean>>, processing: number, currentWordIndex: number}) => {
@@ -15,7 +15,6 @@ const StartTest = ({ message, setPhotoTaken, processing, currentWordIndex }: { m
         <a className="footer-button" onClick={handleClick} style={{ fontSize: '24px', padding: '15px 30px', width: '200px', textAlign: 'center' }}>Start</a>
       ) : (
         <div>
-            <h4>Sign the word for</h4>
             <h2>{message}</h2> {/* Display the variable passed from the parent */}
             {(processing === 0) &&
             <CountdownTimer setPhotoTaken={setPhotoTaken}/>

@@ -50,7 +50,16 @@ export default function TrialPage() {
   };
 
   return (
-    <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', padding: '20px' }}>
+    <div style={{
+      textAlign: 'center',
+      fontFamily: 'Arial, sans-serif',
+      padding: '20px',
+      maxWidth: '800px',
+      margin: '20px auto',
+      border: '2px solid #007BFF',  // Add border to outline the page
+      borderRadius: '10px',  // Optional: to add rounded corners to the outline
+      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'  // Optional: Add a subtle shadow for better effect
+    }}>
       {/* Centered Title */}
       <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Dictionary</h1>
       <p style={{ marginBottom: '20px' }}>Type a word to look it up in the dictionary!</p>
@@ -61,7 +70,15 @@ export default function TrialPage() {
         value={userInput}
         onChange={handleInputChange}
         placeholder="Enter your text here"
-        style={{ padding: '10px', fontSize: '1rem', width: '80%', maxWidth: '400px', marginBottom: '20px' }}
+        style={{
+          padding: '10px',
+          fontSize: '1rem',
+          width: '80%',
+          maxWidth: '400px',
+          marginBottom: '20px',
+          outline: '2px solid #007BFF',  // Blue outline around the input box
+          borderRadius: '5px' // Optional: Rounded corners
+        }}
       />
 
       {/* Dropdown suggestions */}

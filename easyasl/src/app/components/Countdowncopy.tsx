@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const CountdownTimer = ({ setPhotoTaken }: { setPhotoTaken: React.Dispatch<React.SetStateAction<boolean>> }) => {
   // Initial time in seconds (1 hour)
-  const initialTime = 5;
+  const initialTime = 2;
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
 
   useEffect(() => {

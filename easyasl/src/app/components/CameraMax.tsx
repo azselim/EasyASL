@@ -7,17 +7,15 @@ interface CaptureAndProcessProps {
   photoTaken: boolean;
   setProcessing: React.Dispatch<React.SetStateAction<number>>;
   correctWord: string;
-  incrementScore: () => void;
-  goToNextQuestion: () => void; // Add the next question prop
-  processing: number
+  onWordCaptured: (word: string) => void; // Add the callback for sending the word
+  processing: number;
 }
 
 const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({
   photoTaken,
   setProcessing,
   correctWord,
-  incrementScore,
-  goToNextQuestion, // Include the next question prop
+  onWordCaptured,
   processing,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -109,26 +107,14 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({
       </div>
       {processedImageUrl1 && processedImageUrl2 && (
         <div>
-          <h3>
-            <ASLInterpreter
-              photo1={processedImageUrl1}
-              photo2={processedImageUrl2}
-              setResult={(word) => {
-                setWord(word);
-                if (word === correctWord) {
-                  incrementScore(); // Increment the score if the word is correct
-                  setProcessing(3);
-                } else {
-                  setProcessing(4);
-                }
-              }}
-            />
-          </h3>
-          {(word && (word === correctWord ? (
-            <p>Correct! Click 'Next' to continue.</p>
-          ) : (
-            <p>Incorrect. The correct answer was {correctWord}. Click 'Next' to continue.</p>
-          )))}
+          <ASLInterpreter
+            photo1={processedImageUrl1}
+            photo2={processedImageUrl2}
+            setResult={(word) => {
+              setWord(word);
+              onWordCaptured(word); // Send the word back to TestPage
+            }}
+          />
         </div>
       )}
     </div>

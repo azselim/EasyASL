@@ -93,3 +93,32 @@ footer {
     padding: 10px 0;
 }
 
+.spinner {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #4caf50; /* Green */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Adding outline around the buttons */
+.button-outline {
+  outline: 2px solid #007BFF; /* Blue outline */
+  padding: 10px 20px;         /* Padding to make the buttons look good */
+  border-radius: 5px;         /* Rounded corners */
+  transition: all 0.3s ease;  /* Smooth transition on hover */
+  text-decoration: none;      /* Remove underline from links */
+  color: #007BFF;             /* Default button text color */
+  background-color: transparent; /* Transparent background */
+}
+
+.button-outline:hover {
+  background-color: #007BFF;  /* Blue background on hover */
+  color: white;               /* White text on hover */
+}
