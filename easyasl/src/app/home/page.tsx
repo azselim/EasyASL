@@ -9,13 +9,13 @@ const Home = () => {
       <main className="flex flex-col gap-20 row-start-2 items-center sm:items-start">
         
         {/* Centering the h1 with Typewriter effect */}
-        <div className="w-full flex justify-center">
+        <div style={{display: "flex", alignItems: "center", marginLeft: "470px"}}>
           <h1>
-          VeriLang
+          EasyASL
           </h1>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", marginTop: "20px" , marginLeft: "500px"}}>
+        <div style={{ display: "flex", alignItems: "center", marginTop: "20px" , marginLeft: "420px"}}>
           <Image
             src="/logo.jpg"
             alt="Logo"
@@ -25,7 +25,7 @@ const Home = () => {
           />
           <h2>
           <Typewriter
-              words={['Learn', 'Translate', 'Practice']}
+              words={['Learn.', 'Translate.', 'Practice.']}
               loop={false}
               cursor
               cursorStyle="|"
@@ -35,7 +35,7 @@ const Home = () => {
             />
             </h2>
         </div>
-        <div style = {{display: "flex", alignItems: "center", marginLeft: "350px" }}>
+        <div style = {{display: "flex", alignItems: "center", marginLeft: "275px" }}>
         <Image
           className="logo"
           src="/coloredline.png"
@@ -45,8 +45,9 @@ const Home = () => {
         />
         </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div style={{marginTop: "100px", marginBottom: "100px"}}>
           {/* First Link */}
+          
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
             href="./education-page/"
@@ -55,6 +56,8 @@ const Home = () => {
             data-react-test="true"
             data-main="true"
           >
+          
+          
             <Image
               className="dark:invert"
               src="https://nextjs.org/icons/vercel.svg"
@@ -114,6 +117,7 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
+        
           <Image
             aria-hidden
             src="https://nextjs.org/icons/globe.svg"
