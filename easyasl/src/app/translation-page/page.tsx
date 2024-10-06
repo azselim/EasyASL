@@ -1,4 +1,5 @@
 'use client'
+import Image from "next/image";
 import React, { useState } from 'react';
 import CameraCapture from '../components/CameraCaptureAuto'; 
 import showCameraCapture from '../components/CameraCaptureAuto'; 
@@ -48,7 +49,7 @@ export default function TranslationPage() {
   const handleTwoWayTranslation = () => {
     setMessage('Coming soon...');
   };
-  
+
   return (
     <div>
       <h1>Translating</h1>
@@ -67,4 +68,4 @@ export default function TranslationPage() {
       </button>
     </div>
   );
-  }
+}
