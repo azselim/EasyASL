@@ -78,17 +78,9 @@ const ExamPage = () => {
           correctWord={wordbank[currentWordIndex]}
           incrementScore={incrementScore}
           processing={processing}
-          goToNextQuestion={goToNextQuestion}
+          goToNextQuestion={goToNextQuestion}  // Pass the function to move to the next question
         />
       </div>
-
-      {/* Centered interactive loading spinner */}
-      {processing > 0 && processing < 3 ? (
-        <div style={styles.spinnerContainer}>
-          <div className="spinner"></div>
-          <p>Processing...</p>
-        </div>
-      ) : null}
 
       {/* "Next Question" button shown only when processing is complete */}
       {processing === 3 || processing === 4 ? (
@@ -144,6 +136,7 @@ const styles = {
   },
   captureContainer: {
     marginTop: '50px',
+    marginBottom: '30px', // Add margin-bottom to create space between the image frame and the button
   },
   spinnerContainer: {
     display: 'flex',
@@ -160,7 +153,7 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-    marginTop: '20px',
+    marginTop: '30px', // Add margin-top to create space between the button and the image frame
   },
   resultText: {
     fontSize: '2rem',
