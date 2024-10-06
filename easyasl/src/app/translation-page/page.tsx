@@ -4,15 +4,13 @@ import CaptureAndProcess from '../components/CaptureAndProcess';
 import CameraCapture from '../components/CameraCapture';
 import texttospeech from '../components/TexttoSpeech'
 import speechtotext from '../components/SpeechtoText'
+import SpeechToText from '../components/SpeechtoText';
 
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('');
 
-  const handleEnglishtoText = () => {
-    setMessage('Translating speech to text...');
-    //speechtotext();
-  };
+  <SpeechToText/>
 
   const handleASLToEnglish = () => {
     setMessage('Processing ASL to speech...');

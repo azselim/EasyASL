@@ -1,21 +1,63 @@
-import fs from "fs";
-import OpenAI from "openai";
+import React, { useState } from 'react';
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+const SpeechToText = () => {
+  const [transcript, setTranscript] = useState('');
+  const [isListening, setIsListening] = useState(false);
 
-async function speechtotext() {
-    const transcription = await openai.audio.transcriptions.create({
-    file: fs.createReadStream("xx.mp3"), //add file
-    model: "whisper-1",
-    });
+  const startDictation = () => {
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new window.webkitSpeechRecognition();
 
-    console.log(transcription.text);
+      recognition.continuous = false; // Stop automatically after the user stops speaking
+      recognition.interimResults = false; // Do not return interim results
 
-    }   
+      recognition.lang = 'en-US'; // Set language to English (US)
 
-    speechtotext();
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
 
+      recognition.onresult = (event) => {
+        const speechResult = event.results[0][0].transcript;
+        setTranscript(speechResult);
+        setIsListening(false);
+        recognition.stop();
+      };
 
-export default speechtotext;
+      recognition.onerror = (event) => {
+        console.error('Error occurred in recognition: ' + event.error);
+        setIsListening(false);
+        recognition.stop();
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      alert("Sorry, your browser doesn't support speech recognition.");
+    }
+  };
+
+  return (
+    <div style={{ textAlign: 'center', padding: '50px' }}>
+      <h1>Speech to Text Demo</h1>
+      <button
+        onClick={startDictation}
+        disabled={isListening}
+        style={{ fontSize: '18px', padding: '10px 20px' }}
+      >
+        {isListening ? 'Listening...' : 'Start Dictation'}
+      </button>
+      <p
+        id="transcript"
+        style={{ marginTop: '30px', fontSize: '20px', fontWeight: 'bold' }}
+      >
+        {transcript}
+      </p>
+    </div>
+  );
+};
+
+export default SpeechToText;
