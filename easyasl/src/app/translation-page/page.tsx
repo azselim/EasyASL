@@ -7,6 +7,7 @@ export default function TranslationPage() {
     <div>
       <h1>Translation</h1>
       <p>This is the content of the education page.</p>
+      
     </div>
   );
 }
