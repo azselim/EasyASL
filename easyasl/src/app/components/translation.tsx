@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import OpenAI from "openai";
+// @ts-ignore
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -40,3 +41,5 @@ async function speechtotext() {
 
 }
 speechtotext();
+
+default export
