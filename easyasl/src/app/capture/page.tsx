@@ -43,10 +43,20 @@ console.log(wordbank);
     setScore((prevScore) => prevScore + 1);
   };
 
+  if (currentWordIndex >= 4) {
+    return (
+      <div>
+        <h1>Test Complete</h1>
+        <h2>{score >= 3 ? 'Pass' : 'Fail'}</h2>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>Certification Page</h1>
       <h2>Score: {score}</h2> {/* Display current score */}
+      {}
       <h2>Progress: {currentWordIndex+1}/4</h2>
 
       {/* Start Test Button */}
@@ -55,6 +65,7 @@ console.log(wordbank);
         message={wordbank[currentWordIndex]}
         setPhotoTaken={setPhotoTaken}
         processing={processing}
+        currentWordIndex={currentWordIndex}
       />
 
       {/* Capture and Process Component */}
@@ -70,7 +81,7 @@ console.log(wordbank);
 
       {/* "Next Question" button shown only when processing is complete */}
       {processing === 3 || processing === 4 ? (
-        <button onClick={goToNextQuestion}>Next Question</button>
+        <a className="footer-button" onClick={goToNextQuestion} style={{ fontSize: '24px', padding: '15px 30px', width: '200px', textAlign: 'center' }}>Next</a>
       ) : null}
     </div>
   );

@@ -129,9 +129,6 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({
           ) : (
             <p>Incorrect. The correct answer was {correctWord}. Click 'Next' to continue.</p>
           )))}
-          {(processing === 3 || processing === 4) && (
-            <button onClick={goToNextQuestion}>Next</button>
-          )}
         </div>
       )}
     </div>

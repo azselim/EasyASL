@@ -34,9 +34,7 @@ const TestPage = ({ correctWord }: { correctWord: string }) => {
         goToNextQuestion={goToNextQuestion}  // Pass `goToNextQuestion`
       />
       {/* Show "Next Question" button if processing is complete */}
-      {processing === 3 || processing === 4 ? (
-        <button onClick={goToNextQuestion}>Next Question</button>
-      ) : null}
+
     </div>
   );
 };
