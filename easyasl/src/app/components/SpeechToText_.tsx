@@ -41,18 +41,17 @@ const SpeechToText = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '50px' }}>
-      <h1>Speech to Text Demo</h1>
+    <div style={{ textAlign: 'center', padding: '50px', border: '1px'}}>
       <button
         onClick={startDictation}
         disabled={isListening}
-        style={{ fontSize: '18px', padding: '10px 20px' }}
+        style={{ fontSize: '18px', padding: '10px 20px', border: '1px' }}
       >
         {isListening ? 'Listening...' : 'Start Dictation'}
       </button>
       <p
         id="transcript"
-        style={{ marginTop: '30px', fontSize: '20px', fontWeight: 'bold' }}
+        style={{ marginTop: '30px', fontSize: '20px', fontWeight: 'bold', border: '1px'}}
       >
         {transcript}
       </p>

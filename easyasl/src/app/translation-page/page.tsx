@@ -2,15 +2,11 @@
 import React, { useState } from 'react';
 import CaptureAndProcess from '../components/CaptureAndProcess'; 
 import CameraCapture from '../components/CameraCapture';
-import texttospeech from '../components/TexttoSpeech'
-import speechtotext from '../components/SpeechToText_'
+import TextToSpeech from '../components/TexttoSpeech'
 import SpeechToText from '../components/SpeechToText_';
-
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('');
-
-  <SpeechToText/>
 
   const handleASLToEnglish = () => {
     setMessage('Processing ASL to speech...');
@@ -20,7 +16,6 @@ export default function TranslationPage() {
 
   const handleTwoWayTranslation = () => {
     setMessage('Performing two-way translation...');
-    handleEnglishtoText();
     handleASLToEnglish();
   };
   
@@ -28,22 +23,19 @@ export default function TranslationPage() {
     <div>
       <h1>Translating</h1>
       <p>{message}</p>
-
-            <button onClick={handleTwoWayTranslation} style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
-        Two-Way Translation
+      <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
+      <SpeechToText/>
       </button>
 
-      <button onClick={handleEnglishtoText} style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
-        English to Text
+      <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
+      <TextToSpeech/>
       </button>
 
-      <button onClick={handleASLToEnglish} style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
-        ASL to Spoken English
-      </button>
     </div>
   );
-  }
 
-function handleEnglishtoText() {
-  throw new Error('Function not implemented.');
-}
+
+
+
+
+  }

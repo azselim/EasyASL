@@ -1,33 +1,52 @@
-import fs from "fs";
-import path from "path";
-import OpenAI from "openai";
-// @ts-ignore
-import dotenv from "dotenv";
+import React, { useState } from 'react';
 
-dotenv.config();
+const TextToSpeech: React.FC = () => {
+  const [text, setText] = useState('');
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
-//audio from text
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+  const speakText = () => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US'; // Set language to English (US)
 
-const speechFile = path.resolve("./speech.mp3");
+      utterance.onstart = () => {
+        setIsSpeaking(true);
+      };
 
-async function texttospeech() {
-    try {
-        const mp3 = await openai.audio.speech.create({
-            model: "tts-1",
-            voice: "fable",
-            input: "" //add input
-        });
-    
-    console.log(speechFile);
-    const buffer = Buffer.from(await mp3.arrayBuffer());
-    await fs.promises.writeFile(speechFile, buffer);
-    console.log("Audio saved successfully.")}
-    catch(error) {
-        console.error("Error occured", error);
+      utterance.onend = () => {
+        setIsSpeaking(false);
+      };
+
+      utterance.onerror = (event) => {
+        console.error('Error occurred in speech synthesis: ' + event.error);
+        setIsSpeaking(false);
+      };
+
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("Sorry, your browser doesn't support text to speech.");
     }
-}
+  };
 
-export default texttospeech();
+  return (
+    <div style={{ textAlign: 'center', padding: '50px' }}>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Enter text to speak"
+        rows={5}
+        style={{ width: '80%', fontSize: '16px', padding: '10px' }}
+      ></textarea>
+      <br />
+      <button
+        onClick={speakText}
+        disabled={isSpeaking || text.trim() === ''}
+        style={{ marginTop: '20px', fontSize: '18px', padding: '10px 20px' }}
+      >
+        {isSpeaking ? 'Speaking...' : 'Speak'}
+      </button>
+    </div>
+  );
+};
+
+export default TextToSpeech;
