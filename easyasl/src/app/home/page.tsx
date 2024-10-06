@@ -26,7 +26,7 @@ const Home: React.FC = () => {
           />
           <h2>
           <Typewriter
-              words={['Practice.', 'Translate.', 'Certify.']}
+              words={['Practice.', 'Translate', 'Certify']}
               loop={false}
               cursor
               cursorStyle="|"
@@ -62,6 +62,11 @@ const Home: React.FC = () => {
       </main>
 
       {/* Footer with buttons */}
+      
+ 
+      
+      
+
     </div>
   );
 };
