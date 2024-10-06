@@ -29,7 +29,6 @@ const CountdownTimer = ({ setPhotoTaken }: { setPhotoTaken: React.Dispatch<React
 
   return (
     <div>
-      <p>Countdown Timer:</p>
       {timeRemaining > 0 ? (
         <h1>{seconds}</h1>
       ) : (
