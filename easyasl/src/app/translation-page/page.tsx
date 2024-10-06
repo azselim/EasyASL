@@ -2,13 +2,11 @@
 import React, { useState } from 'react';
 import CaptureAndProcess from '../components/CaptureAndProcess'; 
 import CameraCapture from '../components/CameraCapture';
-import texttospeech from '../components/TexttoSpeech'
+import TextToSpeech from '../components/TexttoSpeech'
 import SpeechToText from '../components/SpeechToText_';
-
 
 export default function TranslationPage() {
   const [message, setMessage] = useState('');
-
 
   const handleASLToEnglish = () => {
     setMessage('Processing ASL to speech...');
@@ -25,15 +23,19 @@ export default function TranslationPage() {
     <div>
       <h1>Translating</h1>
       <p>{message}</p>
-
       <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
       <SpeechToText/>
       </button>
+
+      <button style={{ fontSize: '24px', padding: '15px', margin: '10px' }}>
+      <TextToSpeech/>
+      </button>
+
     </div>
   );
 
 
 
 
-  
+
   }
