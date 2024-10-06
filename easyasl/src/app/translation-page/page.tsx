@@ -11,13 +11,13 @@ export default function TranslationPage() {
 
   const handleEnglishtoText = () => {
     setMessage('Translating speech to text...');
-    speechtotext();
+    //speechtotext();
   };
 
   const handleASLToEnglish = () => {
     setMessage('Processing ASL to speech...');
-    CaptureAndProcess();
-    texttospeech();
+    //CaptureAndProcess();
+    //texttospeech();
   };
 
   const handleTwoWayTranslation = () => {

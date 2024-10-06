@@ -21,7 +21,7 @@ const StartTest = ({ message, setPhotoTaken, processing, currentWordIndex }: { m
             <CountdownTimer setPhotoTaken={setPhotoTaken}/>
             }
             {(processing === 1) &&
-            <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" />
+            <img src="" />
             }
             {(processing === 2) &&
             <h3>Wrong</h3>
