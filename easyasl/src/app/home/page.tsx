@@ -40,7 +40,7 @@ const Home: React.FC = () => {
             <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
             <a className="footer-button" href="/trial-page">Learn</a>
             <a className="footer-button" href="/translation-page">Translate</a>
-            <a className="footer-button" href="/certification-page">Certifiy</a>
+            <a className="footer-button" href="/capture">Certify</a>
           </footer>
             
         </div>
