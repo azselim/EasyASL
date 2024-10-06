@@ -25,7 +25,7 @@ export default function Home() {
           height={80}
         />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div className="body_text">
           <a
         react-test
             href="./education-page/"
@@ -42,10 +42,11 @@ export default function Home() {
             />
             Practice ASL
           </a>
+          </div>
+          <div className="body_text">
           <a
         react-test
             href="./certification-page/"
-         main
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -59,6 +60,8 @@ export default function Home() {
             />
             Certify ASL Skills
           </a>
+          </div>
+          <div className="body_text">
           <a
         react-test
             href="./translation-page/"
@@ -75,7 +78,7 @@ export default function Home() {
             />
             Translate in Real-Time
           </a>
-        </div>
+          </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a

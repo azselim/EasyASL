@@ -18,6 +18,8 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 50px;
+  outline: solid 10px;
 }
 
 @layer utilities {
@@ -35,4 +37,21 @@ h1 {
 h2 {
   font-size: 60px;
   color: #FCAF3B;
+  font-family:Tahoma, Geneva, Verdana, sans-serif
+}
+
+.body_text {
+  color:#130057;
+  padding: 8px;
+  margin: 10px;
+  font-size: 15px;
+  font-family:'Times New Roman', Times, serif;
+  background-color: rgb(153, 166, 205);
+  border-radius: 10px;
+  text-align: center;
+
+}
+
+footer {
+  text-align: center;
 }
