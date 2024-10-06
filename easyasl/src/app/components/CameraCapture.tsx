@@ -11,8 +11,11 @@ const CameraCapture = () => {
   const downloadLink2Ref = useRef<HTMLAnchorElement | null>(null);
 
   // State to store base64 strings for both images
+
+  // State to store base64 strings for both images
   const [base64Image1, setBase64Image1] = useState<string>('');
   const [base64Image2, setBase64Image2] = useState<string>('');
+
 
   // Function to start the webcam
   useEffect(() => {
