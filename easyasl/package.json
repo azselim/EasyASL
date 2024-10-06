@@ -9,18 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "form-data": "^4.0.0",
     "next": "14.2.14",
     "openai": "^4.67.1",
     "react": "^18",
     "react-dom": "^18",
     "react-router": "^6.26.2",
+<<<<<<< HEAD
     "react-router-dom": "^6.26.2",
     "react-simple-typewriter": "^5.0.1",
     "reactjs": "^1.0.0",
     "reactjs-popup": "^2.0.6"
+    "react-router-dom": "^6.26.2",
+    "reactjs-popup": "^2.0.6"
+=======
+    "react-router-dom": "^6.26.2"
+>>>>>>> parent of faa5504 (type-writer-effect)
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/react": "^18.3.11",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
