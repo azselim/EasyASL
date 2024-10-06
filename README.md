@@ -1,2 +1,2 @@
-# VeriLang
-Hack the Valley 9 submission
+# EasyASL
+Hack the Valley 9 winner
