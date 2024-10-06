@@ -18,6 +18,9 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
   const [processedImageUrl1, setProcessedImageUrl1] = useState<string>('');
   const [processedImageUrl2, setProcessedImageUrl2] = useState<string>('');
   const [word, setWord] = useState<string>('');
+  const [once, setOnce] = useState(true);
+
+  
 
   useEffect(() => {
     // Initialize webcam stream
@@ -51,16 +54,22 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
 
   const captureAndProcessPhotos = () => {
     if (!videoRef.current || !canvasRef1.current || !canvasRef2.current) return;
-
+  
     const ctx1 = canvasRef1.current.getContext('2d');
     const ctx2 = canvasRef2.current.getContext('2d');
-
+  
     if (!ctx1 || !ctx2) return;
-
-    // Capture the first photo
-    ctx1.drawImage(videoRef.current, 0, 0, canvasRef1.current.width, canvasRef1.current.height);
-    const imageDataURL1 = canvasRef1.current.toDataURL('image/png');
-
+  
+    // Define the target dimensions for compressed images
+    const targetWidth = 320; // Smaller width for compression
+    const targetHeight = 240; // Smaller height for compression
+  
+    // Resize and capture the first photo
+    canvasRef1.current.width = targetWidth;
+    canvasRef1.current.height = targetHeight;
+    ctx1.drawImage(videoRef.current, 0, 0, targetWidth, targetHeight); // Draw to smaller canvas
+    const imageDataURL1 = canvasRef1.current.toDataURL('image/jpeg', 0.7); // Use JPEG format for further compression
+  
     // Process the first image
     processImage(imageDataURL1)
       .then((url) => {
@@ -69,12 +78,14 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
       .catch((error) => {
         console.error('Error processing image 1:', error);
       });
-
+  
     // Wait 1.5 seconds and then capture the second photo
     setTimeout(() => {
-      ctx2.drawImage(videoRef.current!, 0, 0, canvasRef2.current.width, canvasRef2.current.height);
-      const imageDataURL2 = canvasRef2.current.toDataURL('image/png');
-
+      canvasRef2.current.width = targetWidth;
+      canvasRef2.current.height = targetHeight;
+      ctx2.drawImage(videoRef.current!, 0, 0, targetWidth, targetHeight); // Draw to smaller canvas
+      const imageDataURL2 = canvasRef2.current.toDataURL('image/jpeg', 0.7); // Compress second image
+  
       // Process the second image
       processImage(imageDataURL2)
         .then((url) => {
@@ -83,8 +94,9 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
         .catch((error) => {
           console.error('Error processing image 2:', error);
         });
-    }, 1500);
+    }, 1000);
   };
+  
 
   const processImage = async (base64Image: string): Promise<string> => {
     // Send the image to the API route
@@ -113,7 +125,7 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
         <canvas ref={canvasRef1} width="640" height="480"></canvas>
         <canvas ref={canvasRef2} width="640" height="480"></canvas>
       </div>
-      {(processedImageUrl1 && processedImageUrl2) && (
+      {(processedImageUrl1 && processedImageUrl2 && once) && (
         <div>
           <h3>
             {/* Pass setProcessing and setWord to the ASLInterpreter component */}
@@ -125,8 +137,9 @@ const CaptureAndProcess: React.FC<CaptureAndProcessProps> = ({ photoTaken, setPr
                 if (word === correctWord) {
                   setProcessing(3); // If interpreted as correct
                 } else {
-                  setProcessing(4); // If interpreted as incorrect
+                  setProcessing(2); // If interpreted as incorrect
                 }
+                setOnce(false);
               }}
             />
           </h3>
