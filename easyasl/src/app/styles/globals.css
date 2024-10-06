@@ -19,7 +19,6 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   margin: 50px;
-  outline: solid 10px
 }
 
 @layer utilities {
@@ -36,7 +35,7 @@ h1 {
 
 h2 {
   font-size: 60px;
-  color: #FCAF3B;
+  color: #32a8a2;
   font-family:Tahoma, Geneva, Verdana, sans-serif
 }
 
@@ -49,6 +48,7 @@ h2 {
   background-color: rgb(153, 166, 205);
   border-radius: 10px;
   text-align: center;
+  outline: 5px;
 
 }
 
@@ -69,3 +69,27 @@ footer {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
   }
   
+  .footer-button {
+    background-color: #32a8a2; /* Your preferred background color */
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    
+}
+
+.footer-button:hover {
+    background-color: #005bb5;
+}
+
+footer {
+    position: fixed;
+    bottom: 200px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 0;
+}
+
