@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Two Photos and Convert to Base64</title>
+    <style>
+        video, canvas {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Press 's' to capture two photos with a 1.5s delay, convert them to Base64, or 'q' to stop the video.</h2>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas1" width="640" height="480" style="border:1px solid black; display:none;"></canvas>
+    <canvas id="canvas2" width="640" height="480" style="border:1px solid black; display:none;"></canvas>
+
+    <!-- Download links for the images -->
+    <a id="download1" download="uimage1.jpg" style="display:none;">Download Image 1</a>
+    <a id="download2" download="uimage2.jpg" style="display:none;">Download Image 2</a>
+
+    <div id="output"></div>
+
+    <script>
+        // Access the video element and canvas elements
+        const video = document.getElementById('video');
+        const canvas1 = document.getElementById('canvas1');
+        const canvas2 = document.getElementById('canvas2');
+        const ctx1 = canvas1.getContext('2d');
+        const ctx2 = canvas2.getContext('2d');
+
+        const downloadLink1 = document.getElementById('download1');
+        const downloadLink2 = document.getElementById('download2');
+        const output = document.getElementById('output');
+
+        // Variables to store the Base64 strings for the images
+        let base64Image1 = "";
+        let base64Image2 = "";
+
+        // Request access to the webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.error("Error accessing the webcam:", err);
+            });
+
+        // Function to capture, save, and convert images to Base64
+        function captureAndSavePhotos() {
+            // Capture the first photo on canvas1
+            ctx1.drawImage(video, 0, 0, canvas1.width, canvas1.height);
+            console.log("First photo captured.");
+
+            // Convert the canvas to a Base64 string
+            base64Image1 = canvas1.toDataURL('image/jpeg');
+            downloadLink1.href = base64Image1;  // Set the download link
+
+            console.log("First image Base64:", base64Image1);  // Log the Base64 string
+            output.innerHTML += `<p>First Image Base64:</p><textarea rows="4" cols="80">${base64Image1}</textarea>`;
+
+            // Wait 1.5 seconds and then capture the second photo on canvas2
+            setTimeout(() => {
+                ctx2.drawImage(video, 0, 0, canvas2.width, canvas2.height);
+                console.log("Second photo captured.");
+
+                // Convert the canvas to a Base64 string
+                base64Image2 = canvas2.toDataURL('image/jpeg');
+                downloadLink2.href = base64Image2;  // Set the download link
+
+                console.log("Second image Base64:", base64Image2);  // Log the Base64 string
+                output.innerHTML += `<p>Second Image Base64:</p><textarea rows="4" cols="80">${base64Image2}</textarea>`;
+            }, 1500);  // Delay of 1.5 seconds
+        }
+
+        // Add event listener for keypresses
+        document.addEventListener('keydown', (event) => {
+            const key = event.key.toLowerCase();  // Normalize the key to lowercase
+            if (key === 's') {
+                // If 's' is pressed, capture and convert the images
+                captureAndSavePhotos();
+            } else if (key === 'q') {
+                // If 'q' is pressed, stop the webcam
+                stopStreamedVideo(video);
+                console.log("Video stream stopped.");
+            }
+        });
+
+        // Function to stop the video stream
+        function stopStreamedVideo(videoElement) {
+            const stream = videoElement.srcObject;
+            const tracks = stream.getTracks();
+
+            tracks.forEach(track => track.stop());  // Stop each track
+            videoElement.srcObject = null;  // Clear the video source
+        }
+
+        async function processImage(imageName) {
+
+    // Prepare FormData
+    const form = new FormData();
+    form.append('file', imageBlob, 'imageName.png'); // Provide a file name if needed
+    form.append('output_type', 'cutout');
+    form.append('bg_blur', '0');
+    form.append('scale', 'fit');
+    form.append('auto_center', 'false');
+    form.append('stroke_size', '0');
+    form.append('stroke_color', 'FFFFFF');
+    form.append('stroke_opacity', '100');
+    form.append('shadow', 'disabled');
+    form.append('shadow_opacity', '20');
+    form.append('shadow_blur', '50');
+    form.append('format', 'PNG');
+
+    const options = {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+            'X-Picsart-API-Key': 'eyJraWQiOiI5NzIxYmUzNi1iMjcwLTQ5ZDUtOTc1Ni05ZDU5N2M4NmIwNTEiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhdXRoLXNlcnZpY2UtMzIxNWZmODAtMjYwYy00ZWE0LTllYmMtZWUyMDE0M2ZhZGNjIiwiYXVkIjoiNDY1ODQyNzg2MDA1MTAxIiwibmJmIjoxNzI4MTQ2OTgyLCJzY29wZSI6WyJiMmItYXBpLmdlbl9haSIsImIyYi1hcGkuaW1hZ2VfYXBpIl0sImlzcyI6Imh0dHBzOi8vYXBpLnBpY3NhcnQuY29tL3Rva2VuLXNlcnZpY2UiLCJvd25lcklkIjoiNDY1ODQyNzg2MDA1MTAxIiwiaWF0IjoxNzI4MTQ2OTgyLCJqdGkiOiJmMjFkOTRmNy02NDcyLTQxYzAtOGYwOS04YWRlNjNiZDE3YjMifQ.h_SKMblsS6MayAyZE6gssGIYO5nKodxTtRWHvrsuaekUDMliWir3U2vgUrU0VLJxPX-cvI1VnQyAuHPqX6tm3GNRe0gVsnLuTeH1eyUatEHqTPoT_6PnOUo-APXFMXgUZYOCbiwiyacIWElLq7_qZRONp5-KIkfw7AB5Wu9kmQE7QpU-RurbDK3-HjmhgH6hcmJzepUKy0Shxh3KxFIkA1-9r2wOR8It7lWvMoSf0aWxodRs2NWTXNxvRkRAcVBhkQv10AK1a5j-qeP9SyKGKh_VvOoa5aFUZ4mAt0u0PpIKX8TBFJYSs2qnyrwZAZaBwoNlD5WNQcmZWQ4nHbLSEg' 
+            // No need to set 'Content-Type' when using FormData
+        },
+        body: form
+    };
+
+    // Send POST request to the Picsart API
+    const apiResponse = await fetch('https://api.picsart.io/tools/1.0/removebg', options);
+
+    if (!apiResponse.ok) {
+        const errorData = await apiResponse.json();
+        throw new Error(`API Error: ${errorData.message || apiResponse.statusText}`);
+    } //cc out eventually, diagnostic tool
+
+    const apiResult = await apiResponse.json();
+    const processedImageUrl = apiResult.data.url; //processedImageUrl can now be used
+    return processedImageUrl;
+}
+    let frame1 = processImage(uimage1);
+    let frame2 = processImage(uimage2);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
