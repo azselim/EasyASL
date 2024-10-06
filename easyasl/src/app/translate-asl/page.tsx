@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import TestPage from '@/app/components/Testwrdd';
+import { useRouter } from 'next/navigation';
 
 const ParentPage: React.FC = () => {
   const [fullSentence, setFullSentence] = useState<string>(''); // Store the entire sentence
@@ -9,26 +10,28 @@ const ParentPage: React.FC = () => {
   const [key, setKey] = useState<number>(0); // Unique key to reset `TestPage`
   const [finalized, setFinalized] = useState<boolean>(false); // Flag to indicate if the sentence is finalized
   const [correctedSentence, setCorrectedSentence] = useState<string>(''); // Store the corrected sentence
+  const router = useRouter();
 
   // Function to handle each word received from `TestPage`
   const handleNewWord = (word: string) => {
-    // Append the new word to the full sentence
-    setFullSentence((prevSentence) => `${prevSentence} ${word}`.trim());
-    setCurrentWord(word);
-    resetTestPage(); // Reset TestPage after each word if not finalized
+    if (!finalized) {
+      setFullSentence((prevSentence) => `${prevSentence} ${word}`.trim());
+      setCurrentWord(word);
+      resetTestPage(); // Reset TestPage after each word if not finalized
+    }
   };
 
   // Function to reset the `TestPage` component
   const resetTestPage = () => {
-    if (!finalized) {
-      setKey((prevKey) => prevKey + 1); // Increment the key to force a reset of `TestPage`
-    }
+    setKey((prevKey) => prevKey + 1); // Increment the key to force a reset of `TestPage`
   };
 
   // Function to handle spacebar press and finalize the sentence
   const handleKeyPress = (event: KeyboardEvent) => {
-    if (event.key === ' ') {
-      setFinalized(true); // Stop the process and show final sentence
+    if (event.key === ' ' && !finalized) {
+      setFinalized(true); // Stop the process and show the final sentence
+    } else if (event.key === ' ' && finalized) {
+      router.push('/translation-page'); // Redirect when space is pressed again after finalization
     }
   };
 
@@ -54,21 +57,20 @@ const ParentPage: React.FC = () => {
     }
   };
 
-  // Attach the event listener for the spacebar press
+  // Attach the event listener for the spacebar press and clean it up properly
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
-
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [finalized]); // Include `finalized` to ensure proper state reference
 
   // Call the grammar correction API when the sentence is finalized
   useEffect(() => {
     if (finalized) {
       correctSentence(fullSentence); // Correct the sentence
     }
-  }, [finalized]);
+  }, [finalized, fullSentence]);
 
   return (
     <div>
