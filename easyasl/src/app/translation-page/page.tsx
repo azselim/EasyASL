@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from 'react';
 import texttospeech from '../components/TextToSpeech'
+import speechtotext from '../components/SpeechToText'
 import CameraCapture from '@/app/components/CaptureAndProcess';
 
 export default function TranslationPage() {
