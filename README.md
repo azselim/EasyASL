@@ -23,8 +23,9 @@ We were very proud to be able to integrate APIs into our project. We learned how
 We learned a lot about using Git to work collaboratively and resolve conflicts like separate branches or merge conflicts. We also learned to use Next.js to expand what we could do beyond JavaScript and HTML/CSS. Finally, we learned to use APIs like Open AI API and Google Web Speech API.
 
 # What's next for EasyASL
-We'd like to continue developing EasyASL and potentially replacing the Open AI framework with a neural network model that we would train ourselves. Currently processing inputs via API has token limits reached quickly due to the character count of Base64 converted image. This results in a noticeable delay between image capture and model output. By implementing our own model, we hope to speed this process up to recreate natural language flow more readily. We'd also like to continue to improve the UI/UX experience by updating our web app interface.
+We'd like to continue developing EasyASL and potentially replacing the Open AI framework with a neural network model that we would train ourselves. Currently processing inputs via API has token limits reached quickly due to the character count of Base64 converted image. This results in a noticeable delay between image capture and model output. By implementing our own model, we hope to speed this process up to recreate natural language flow more readily. We'd also like to continue to improve the UI/UX experience by updating our web app interface. Finally, we're considering adding translation to other sign languages to expand EasyASL to a global audience.
 
 # Other Links & Achievements
 Devpost: https://devpost.com/software/easyasl?ref_content=my-projects-tab&ref_feature=my_projects
-**EasyASL was submitted to Hack the Valley 9 and won Best Beginner Hack!**
+
+### EasyASL was submitted to Hack the Valley 9 and won Best Beginner Hack!
