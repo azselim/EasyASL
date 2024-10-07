@@ -28,4 +28,4 @@ We'd like to continue developing EasyASL and potentially replacing the Open AI f
 # Other Links & Achievements
 Devpost: https://devpost.com/software/easyasl?ref_content=my-projects-tab&ref_feature=my_projects
 
-### EasyASL was submitted to Hack the Valley 9 and won Best Beginner Hack!
+### EasyASL was submitted to Hack the Valley 9 and won Best Beginner Hack! (Best submission by first-year students or younger)
