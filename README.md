@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/40161a3b-c036-4ccd-b800-51105b7d8c92)
+
+
 # Inspiration
 We were inspired by the fact that diversity in disability is often overlooked - individuals who are hard-of-hearing or deaf and use American Sign Language do not have many tools that support them in learning their language. Because of the visual nature of ASL, it's difficult to translate between it and written languages, so many forms of language software, whether it is for education or translation, do not support ASL. We wanted to provide a way for ASL-speakers to be supported in learning and speaking their language. Additionally, we were inspired by recent news stories about fake ASL interpreters - individuals who defrauded companies and even government agencies to be hired as ASL interpreters, only to be later revealed as frauds. Rather than accurately translate spoken English, they 'signed' random symbols that prevented the hard-of-hearing community from being able to access crucial information. We realized that it was too easy for individuals to claim their competence in ASL without actually being verified. All of this inspired the idea of EasyASL - a web app that helps you learn ASL vocabulary, translate between spoken English and ASL, and get certified in ASL.
 
